@@ -430,12 +430,12 @@ export default function ContactPage() {
                         <Twitter className="w-4 h-4" />
                       </Button>
                     </a>
-                    <a href="https://facebook.com/OfficialSanchitGupta" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.facebook.com/OfficialSanchitGupta" target="_blank" rel="noopener noreferrer">
                       <Button variant="outline" size="sm">
                         <Facebook className="w-4 h-4" />
                       </Button>
                     </a>
-                    <a href="https://instagram.com/dream_x_diamond/" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.instagram.com/dream_x_diamond/" target="_blank" rel="noopener noreferrer">
                       <Button variant="outline" size="sm">
                         <Instagram className="w-4 h-4" />
                       </Button>
