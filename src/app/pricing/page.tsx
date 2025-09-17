@@ -253,7 +253,7 @@ export default function PricingPage() {
       </section>
 
       {/* Billing Cycle Toggle */}
-      <section className="py-8 bg-muted/50 sticky top-0 z-40 backdrop-blur-sm bg-muted/80">
+      <section className="py-8 sticky top-0 z-40 backdrop-blur-sm bg-muted/80">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center gap-4">
             <span className={`text-sm font-medium ${billingCycle === 'monthly' ? 'text-primary' : 'text-muted-foreground'}`}>

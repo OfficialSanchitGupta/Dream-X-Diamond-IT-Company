@@ -44,16 +44,15 @@ export function SearchComponent({ placeholder = "Search...", className }: Search
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button variant="outline" className={`relative h-9 w-9 p-0 md:h-10 md:w-auto md:px-3 ${className}`}>
-            <Search className="h-4 w-4" />
-            <span className="hidden md:inline-block md:ml-2">Search</span>
-            <span className="sr-only">Search</span>
-            <kbd className="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 md:flex">
-              ⌘K
-            </kbd>
-          </Button>
-        </DialogTrigger>
+        <div className="flex items-center gap-2">
+          <DialogTrigger asChild>
+            <Button variant="outline" className={`relative h-9 w-9 p-0 md:h-10 md:w-auto md:px-3 ${className}`}>
+              <Search className="h-4 w-4" />
+              <span className="hidden md:inline-block md:ml-2">Search</span>
+              <span className="sr-only">Search</span>
+            </Button>
+          </DialogTrigger>
+        </div>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Search</DialogTitle>

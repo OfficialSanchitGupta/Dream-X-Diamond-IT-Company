@@ -67,7 +67,6 @@ import {
   Eye,
   Target,
   Rocket,
-  Home,
   MessageCircle as MessageCircleWhatsApp,
   Calculator,
   Trophy,
@@ -109,7 +108,14 @@ export default function Home() {
   const [isChatOpen, setIsChatOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    firstName: string
+    lastName: string
+    email: string
+    company: string
+    service: string
+    message: string
+  }>({
     firstName: '',
     lastName: '',
     email: '',
@@ -117,7 +123,7 @@ export default function Home() {
     service: '',
     message: ''
   })
-  const [formErrors, setFormErrors] = useState({})
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
     const handleScroll = () => {
@@ -135,19 +141,15 @@ export default function Home() {
     }
   }
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: keyof typeof formData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
-    if (formErrors[field]) {
-      setFormErrors(prev => ({ ...prev, [field]: '' }))
+    if (formErrors[field as string]) {
+      setFormErrors(prev => ({ ...prev, [field as string]: '' }))
     }
   }
 
-  const validateForm = () => {
-    const errors = {}
+  const validateForm = (): boolean => {
+    const errors: Record<string, string> = {}
     if (!formData.firstName.trim()) errors.firstName = 'First name is required'
     if (!formData.lastName.trim()) errors.lastName = 'Last name is required'
     if (!formData.email.trim()) {
@@ -1965,7 +1967,7 @@ export default function Home() {
       {/* Back to Top Button */}
       {showBackToTop && (
         <Button
-          onClick={scrollToTop}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="fixed bottom-8 right-8 z-40 rounded-full w-12 h-12 p-0"
           size="icon"
         >

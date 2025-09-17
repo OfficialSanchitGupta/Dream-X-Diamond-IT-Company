@@ -62,7 +62,7 @@ export default function AboutPage() {
 
   const leadershipTeam = [
     {
-      name: 'Alexandra Chen',
+      name: 'Neelam Mahaldar',
       position: 'CEO & Founder',
       bio: 'Visionary leader with 20+ years in technology and digital transformation.',
       experience: 'Former CTO at Fortune 500 companies',

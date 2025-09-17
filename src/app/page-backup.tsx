@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -23,6 +23,7 @@ import {
   Mail, 
   Phone, 
   MessageCircle,
+  Send,
   Github,
   Linkedin,
   Twitter,
@@ -80,12 +81,11 @@ import {
   Target,
   Rocket,
   Sparkles,
-  Home,
+  Home as HomeIcon,
   MessageCircle as MessageCircleWhatsApp,
   Gift,
   Calculator,
-  Trophy,
-  ExternalLink
+  Trophy
 } from 'lucide-react'
 
 import { 
@@ -116,7 +116,18 @@ export default function Home() {
   const [isChatOpen, setIsChatOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [formData, setFormData] = useState({
+  type FormData = {
+    firstName: string
+    lastName: string
+    email: string
+    company: string
+    service: string
+    message: string
+  }
+
+  type FormErrors = Partial<Record<keyof FormData, string>>
+
+  const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
     email: '',
@@ -124,7 +135,7 @@ export default function Home() {
     service: '',
     message: ''
   })
-  const [formErrors, setFormErrors] = useState({})
+  const [formErrors, setFormErrors] = useState<FormErrors>({})
 
   useEffect(() => {
     const handleScroll = () => {
@@ -135,18 +146,15 @@ export default function Home() {
   }, [])
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-      setIsMenuOpen(false)
-    }
+    const el = document.getElementById(sectionId)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
   }
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
     // Clear error when user starts typing
     if (formErrors[field]) {
@@ -155,7 +163,7 @@ export default function Home() {
   }
 
   const validateForm = () => {
-    const errors = {}
+    const errors: FormErrors = {}
     if (!formData.firstName.trim()) errors.firstName = 'First name is required'
     if (!formData.lastName.trim()) errors.lastName = 'Last name is required'
     if (!formData.email.trim()) {
@@ -168,7 +176,7 @@ export default function Home() {
     return Object.keys(errors).length === 0
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (validateForm()) {
       setIsLoading(true)
@@ -1013,6 +1021,7 @@ export default function Home() {
 
   // AI Chatbot Data
   const aiChatbot = {
+    name: 'TechBot Pro',
     capabilities: [
       'Natural Language Processing',
       'Multi-language Support',
@@ -1041,49 +1050,79 @@ export default function Home() {
   }
 
   // Virtual Office Tour Data
-  const virtualOfficeTour = {
-    locations: [
-      {
-        name: 'Headquarters - Silicon Valley',
-        description: 'Our main innovation hub with state-of-the-art facilities',
-        image: '/office/hq.jpg',
-        features: ['Innovation Lab', 'Conference Center', 'R&D Department', 'Employee Lounge'],
-        capacity: '500+ employees',
-        established: '2008'
-      },
-      {
-        name: 'Development Center - Bangalore',
-        description: 'Cutting-edge software development facility',
-        image: '/office/bangalore.jpg',
-        features: ['Development Floors', 'Testing Labs', 'Training Center', 'Recreation Area'],
-        capacity: '300+ developers',
-        established: '2015'
-      },
-      {
-        name: 'European Office - London',
-        description: 'Strategic European operations center',
-        image: '/office/london.jpg',
-        features: ['Client Meeting Rooms', 'Showcase Center', 'Support Team', 'Executive Suites'],
-        capacity: '150+ staff',
-        established: '2018'
-      },
-      {
-        name: 'Asia Pacific - Singapore',
-        description: 'Regional hub for APAC operations',
-        image: '/office/singapore.jpg',
-        features: ['Regional Headquarters', 'Data Center', 'Training Facility', 'Innovation Hub'],
-        capacity: '200+ professionals',
-        established: '2020'
-      }
-    ],
-    interactiveElements: [
-      '360° Virtual Tour',
-      'Live Office Cam',
-      'Team Member Introduction',
-      'Facility Showcase',
-      'Interactive Floor Plan'
-    ]
-  }
+    const virtualOfficeTour = {
+      locations: [
+        {
+          name: 'Headquarters - Silicon Valley',
+          description: 'Our main innovation hub with state-of-the-art facilities',
+          image: '/office/hq.jpg',
+          features: ['Innovation Lab', 'Conference Center', 'R&D Department', 'Employee Lounge'],
+          capacity: '500+ employees',
+          established: '2008'
+        },
+        {
+          name: 'Development Center - Bangalore',
+          description: 'Cutting-edge software development facility',
+          image: '/office/bangalore.jpg',
+          features: ['Development Floors', 'Testing Labs', 'Training Center', 'Recreation Area'],
+          capacity: '300+ developers',
+          established: '2015'
+        },
+        {
+          name: 'European Office - London',
+          description: 'Strategic European operations center',
+          image: '/office/london.jpg',
+          features: ['Client Meeting Rooms', 'Showcase Center', 'Support Team', 'Executive Suites'],
+          capacity: '150+ staff',
+          established: '2018'
+        },
+        {
+          name: 'Asia Pacific - Singapore',
+          description: 'Regional hub for APAC operations',
+          image: '/office/singapore.jpg',
+          features: ['Regional Headquarters', 'Data Center', 'Training Facility', 'Innovation Hub'],
+          capacity: '200+ professionals',
+          established: '2020'
+        }
+      ],
+      interactiveElements: [
+        '360° Virtual Tour',
+        'Live Office Cam',
+        'Team Member Introduction',
+        'Facility Showcase',
+        'Interactive Floor Plan'
+      ],
+      // Added 'areas' so code that expects virtualOfficeTour.areas has the correct shape
+      areas: [
+        {
+          name: 'Main Lobby',
+          description: 'Welcome area with reception and display of company milestones',
+          hotspots: [
+            { title: 'Reception Desk' },
+            { title: 'Milestone Wall' },
+            { title: 'Visitor Lounge' }
+          ]
+        },
+        {
+          name: 'R&D Lab',
+          description: 'Research and development lab with prototype stations',
+          hotspots: [
+            { title: 'Prototype Bench' },
+            { title: 'Testing Suite' },
+            { title: 'Collaboration Zone' }
+          ]
+        },
+        {
+          name: 'Conference Center',
+          description: 'Large meeting rooms and presentation theater',
+          hotspots: [
+            { title: 'Main Auditorium' },
+            { title: 'Breakout Rooms' },
+            { title: 'Presentation Stage' }
+          ]
+        }
+      ]
+    }
 
   // Interactive Elements Data
   const interactiveElements = {
@@ -1142,62 +1181,9 @@ export default function Home() {
     }
   }
 
-  // Virtual Office Tour Data
-  const virtualOfficeTour = {
-    areas: [
-      {
-        name: 'Reception',
-        description: 'Modern welcome area with digital displays',
-        hotspots: [
-          { x: 20, y: 30, title: 'Digital Receptionist', info: 'AI-powered greeting system' },
-          { x: 70, y: 40, title: 'Company Timeline', info: 'Interactive company history wall' }
-        ]
-      },
-      {
-        name: 'Open Workspace',
-        description: 'Collaborative environment for our development teams',
-        hotspots: [
-          { x: 30, y: 50, title: 'Developer Pods', info: 'Ergonomic workstations with dual monitors' },
-          { x: 60, y: 60, title: 'Collaboration Zone', info: 'Brainstorming area with whiteboards' }
-        ]
-      },
-      {
-        name: 'Innovation Lab',
-        description: 'Where we test cutting-edge technologies',
-        hotspots: [
-          { x: 40, y: 40, title: 'VR Testing Area', info: 'Virtual reality development station' },
-          { x: 70, y: 30, title: 'AI Demo Station', info: 'Live AI/ML demonstrations' }
-        ]
-      },
-      {
-        name: 'Executive Suite',
-        description: 'Leadership team workspace',
-        hotspots: [
-          { x: 50, y: 40, title: 'Boardroom', info: 'State-of-the-art meeting facilities' },
-          { x: 30, y: 60, title: 'Strategy Center', info: 'Real-time business analytics dashboard' }
-        ]
-      }
-    ]
-  }
+  // Duplicate virtualOfficeTour declaration removed — the earlier `virtualOfficeTour` object is used.
 
-  // AI Chatbot Data
-  const aiChatbot = {
-    name: 'TechBot',
-    avatar: '/bot-avatar.png',
-    capabilities: [
-      'Answer technical questions',
-      'Schedule consultations',
-      'Provide project estimates',
-      'Share company information',
-      'Technical support assistance'
-    ],
-    quickActions: [
-      { label: 'Get Quote', action: 'quote' },
-      { label: 'Schedule Call', action: 'schedule' },
-      { label: 'Tech Support', action: 'support' },
-      { label: 'View Services', action: 'services' }
-    ]
-  }
+  // Duplicate AI chatbot declaration removed — use the earlier `aiChatbot` object (which contains `personality`, `capabilities`, and `quickActions`)
 
   // Real-time Project Showcase Data
   const liveProjects = [
@@ -1457,6 +1443,53 @@ export default function Home() {
     }
   }
 
+  // Project Dashboard Data (added to fix "Cannot find name 'projectDashboard'")
+  const projectDashboard = {
+    stats: {
+      totalProjects: 128,
+      activeProjects: 42,
+      completedProjects: 86,
+      totalRevenue: '$4.2M',
+      clientSatisfaction: '95%'
+    },
+    liveProjects: [
+      {
+        name: 'Alpha Platform',
+        client: 'Acme Corp',
+        id: 'PRJ-001',
+        status: 'In Progress',
+        progress: 72,
+        team: 6,
+        budget: '$120,000',
+        deadline: '2025-09-30',
+        liveMetrics: {
+          commits: 124,
+          issues: 8,
+          pullRequests: 12,
+          deployments: 3
+        },
+        technologies: ['React', 'Node.js', 'Kubernetes']
+      },
+      {
+        name: 'Beta Mobile App',
+        client: 'Mobile Ventures',
+        id: 'PRJ-002',
+        status: 'In Progress',
+        progress: 45,
+        team: 4,
+        budget: '$85,000',
+        deadline: '2025-06-15',
+        liveMetrics: {
+          commits: 78,
+          issues: 15,
+          pullRequests: 5,
+          deployments: 1
+        },
+        technologies: ['React Native', 'Firebase']
+      }
+    ]
+  }
+
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'dark bg-gray-900' : 'bg-background'}`}>
       {/* Search Dialog */}
@@ -1481,7 +1514,7 @@ export default function Home() {
           <CommandSeparator />
           <CommandGroup heading="Navigation">
             <CommandItem onSelect={() => { setIsSearchOpen(false); scrollToSection('home') }}>
-              <Home className="mr-2 h-4 w-4" />
+              <HomeIcon className="mr-2 h-4 w-4" />
               <span>Home</span>
             </CommandItem>
             <CommandItem onSelect={() => { setIsSearchOpen(false); scrollToSection('about') }}>
@@ -3360,25 +3393,19 @@ export default function Home() {
           </div>
           
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 rounded-2xl shadow-2xl flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-24 h-24 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <span className="text-4xl">🤖</span>
-                  </div>
-                  <h3 className="text-2xl font-bold mb-2">{aiChatbot.name}</h3>
-                  <p className="text-muted-foreground">Always here to help!</p>
-                  
-                  {/* Status indicators */}
-                  <div className="flex items-center justify-center gap-2 mt-4">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm text-muted-foreground">Online</span>
-                  </div>
+          <div className="relative">
+            <div className="aspect-square bg-gradient-to-br from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 rounded-2xl shadow-2xl flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-24 h-24 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <span className="text-4xl">🤖</span>
                 </div>
+                <h3 className="text-2xl font-bold mb-2">{aiChatbot.name}</h3>
+                <p className="text-muted-foreground">Always here to help!</p>
               </div>
             </div>
-            
-            <div className="space-y-6">
+          </div>
+          
+          <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-bold mb-4">Capabilities</h3>
                 <div className="grid grid-cols-1 gap-3">
@@ -3805,8 +3832,8 @@ export default function Home() {
                   <CardHeader>
                     <CardTitle className="text-lg">{location.featuredStory.title}</CardTitle>
                     <CardDescription>
-                      {location.client} • {location.city}, {location.country}
-                    </CardDescription>
+                          {location.featuredStory.client} • {location.city}, {location.country}
+                        </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center justify-between">

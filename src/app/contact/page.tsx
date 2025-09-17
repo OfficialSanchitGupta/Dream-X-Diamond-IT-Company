@@ -51,6 +51,7 @@ export default function ContactPage() {
     company: '',
     service: '',
     budget: '',
+    customBudget: '',
     message: ''
   })
   const [formErrors, setFormErrors] = useState({})
@@ -188,6 +189,7 @@ export default function ContactPage() {
           company: '',
           service: '',
           budget: '',
+          customBudget: '',
           message: ''
         })
       }, 2000)
@@ -228,7 +230,7 @@ export default function ContactPage() {
             <div>
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 mb-4">
                     <MessageCircle className="w-5 h-5" />
                     Send us a Message
                   </CardTitle>
@@ -240,7 +242,7 @@ export default function ContactPage() {
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="firstName">First Name *</Label>
+                        <Label htmlFor="firstName" className="mb-2 block">First Name *</Label>
                         <Input
                           id="firstName"
                           value={formData.firstName}
@@ -253,7 +255,7 @@ export default function ContactPage() {
                         )}
                       </div>
                       <div>
-                        <Label htmlFor="lastName">Last Name *</Label>
+                        <Label htmlFor="lastName" className="mb-2 block">Last Name *</Label>
                         <Input
                           id="lastName"
                           value={formData.lastName}
@@ -267,7 +269,7 @@ export default function ContactPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="email">Email Address *</Label>
+                      <Label htmlFor="email" className="mb-2 block">Email Address *</Label>
                       <Input
                         id="email"
                         type="email"
@@ -281,7 +283,7 @@ export default function ContactPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="company">Company Name</Label>
+                      <Label htmlFor="company" className="mb-2 block">Company Name</Label>
                       <Input
                         id="company"
                         value={formData.company}
@@ -291,7 +293,7 @@ export default function ContactPage() {
 
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="service">Service Interest *</Label>
+                        <Label htmlFor="service" className="mb-2 block">Service Interest *</Label>
                         <Select value={formData.service} onValueChange={(value) => handleInputChange('service', value)}>
                           <SelectTrigger className={(formErrors as any).service ? 'border-red-500' : ''}>
                             <SelectValue placeholder="Select a service" />
@@ -312,7 +314,7 @@ export default function ContactPage() {
                         )}
                       </div>
                       <div>
-                        <Label htmlFor="budget">Budget Range</Label>
+                        <Label htmlFor="budget" className="mb-2 block">Budget Range</Label>
                         <Select value={formData.budget} onValueChange={(value) => handleInputChange('budget', value)}>
                           <SelectTrigger>
                             <SelectValue placeholder="Select budget" />
@@ -324,13 +326,26 @@ export default function ContactPage() {
                             <SelectItem value="25k-50k">$25,000 - $50,000</SelectItem>
                             <SelectItem value="50k-100k">$50,000 - $100,000</SelectItem>
                             <SelectItem value="over-100k">Over $100,000</SelectItem>
+                            <SelectItem value="custom">Custom Amount</SelectItem>
                           </SelectContent>
                         </Select>
+                        {formData.budget === 'custom' && (
+                          <div className="mt-2">
+                            <Label htmlFor="customBudget" className="mb-2 block">Enter Custom Amount</Label>
+                            <Input
+                              id="customBudget"
+                              type="text"
+                              placeholder="Enter your budget amount"
+                              value={formData.customBudget || ''}
+                              onChange={e => handleInputChange('customBudget', e.target.value)}
+                            />
+                          </div>
+                        )}
                       </div>
                     </div>
 
                     <div>
-                      <Label htmlFor="message">Message *</Label>
+                      <Label htmlFor="message" className="mb-2 block">Message *</Label>
                       <Textarea
                         id="message"
                         rows={5}
@@ -393,26 +408,28 @@ export default function ContactPage() {
                     <Smartphone className="w-5 h-5" />
                     Quick Contact
                   </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                  <a href="tel:+918824395449" className="w-full">
-                    <Button className="w-full" variant="outline">
-                      <Phone className="w-4 h-4 mr-2" />
-                      Call Us Now
-                    </Button>
-                  </a>
-                  <a href="mailto:dreamxdiamond.c@gmail.com" className="w-full">
-                    <Button className="w-full" variant="outline">
-                      <Mail className="w-4 h-4 mr-2" />
-                      Email Us
-                    </Button>
-                  </a>
-                  <a href="https://calendly.com/dreamxdiamond-c/30min" target="_blank" rel="noopener noreferrer" className="w-full">
-                    <Button className="w-full" variant="outline">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      Schedule Meeting
-                    </Button>
-                  </a>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col gap-3">
+                    <a href="tel:+918824395449" className="w-full">
+                      <Button className="w-full" variant="outline">
+                        <Phone className="w-4 h-4 mr-2" />
+                        Call Us Now
+                      </Button>
+                    </a>
+                    <a href="mailto:dreamxdiamond.c@gmail.com" className="w-full">
+                      <Button className="w-full" variant="outline">
+                        <Mail className="w-4 h-4 mr-2" />
+                        Email Us
+                      </Button>
+                    </a>
+                    <a href="https://calendly.com/dreamxdiamond-c/30min" target="_blank" rel="noopener noreferrer" className="w-full">
+                      <Button className="w-full" variant="outline">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Schedule Meeting
+                      </Button>
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
 
@@ -712,7 +729,9 @@ export default function ContactPage() {
                     <p className="text-sm text-muted-foreground mb-4">
                       Chat with our support team in real-time
                     </p>
-                    <Button variant="outline" size="sm">Start Chat</Button>
+                    <a href="https://wa.me/918824395449" target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" size="sm">Start Chat</Button>
+                    </a>
                   </div>
                   <div className="text-center">
                     <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
@@ -722,7 +741,9 @@ export default function ContactPage() {
                     <p className="text-sm text-muted-foreground mb-4">
                       Speak directly with our support team
                     </p>
-                    <Button variant="outline" size="sm">Call Now</Button>
+                    <a href="tel:+918824395449">
+                      <Button variant="outline" size="sm">Call Now</Button>
+                    </a>
                   </div>
                   <div className="text-center">
                     <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
@@ -732,7 +753,9 @@ export default function ContactPage() {
                     <p className="text-sm text-muted-foreground mb-4">
                       Send us a detailed message
                     </p>
-                    <Button variant="outline" size="sm">Send Email</Button>
+                    <a href="mailto:dreamxdiamond.c@gmail.com">
+                      <Button variant="outline" size="sm">Send Email</Button>
+                    </a>
                   </div>
                 </div>
               </CardContent>
@@ -749,12 +772,16 @@ export default function ContactPage() {
             Let's discuss how Dream X Diamond can help you achieve your technology goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button variant="secondary" size="lg">
-              Schedule a Consultation
-            </Button>
-            <Button variant="outline" size="lg" className="bg-transparent border-white text-white hover:bg-white hover:text-primary">
-              Call Us Now
-            </Button>
+            <a href="https://calendly.com/dreamxdiamond-c/30min" target="_blank" rel="noopener noreferrer">
+              <Button variant="secondary" size="lg">
+                Schedule a Consultation
+              </Button>
+            </a>
+            <a href="tel:+918824395449">
+              <Button variant="outline" size="lg" className="bg-transparent border-white text-white hover:bg-white hover:text-primary">
+                Call Us Now
+              </Button>
+            </a>
           </div>
         </div>
       </section>
