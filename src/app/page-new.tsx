@@ -80,7 +80,7 @@ import {
   Target,
   Rocket,
   Sparkles,
-  Home,
+  // Home, // Removed duplicate import
   MessageCircle as MessageCircleWhatsApp,
   Gift,
   Calculator,
@@ -99,7 +99,7 @@ import {
   Check,
   Crown,
   Medal,
-  Certificate,
+  // Certificate, // Removed, not exported from lucide-react
   Building2,
   Globe as GlobeIcon,
   Shield as ShieldIcon,
@@ -142,7 +142,7 @@ export default function Home() {
     service: '',
     message: ''
   })
-  const [formErrors, setFormErrors] = useState({})
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({})
 
   useEffect(() => {
     const handleScroll = () => {
@@ -172,7 +172,7 @@ export default function Home() {
   }
 
   const validateForm = () => {
-    const errors = {}
+  const errors: { [key: string]: string } = {}
     if (!formData.firstName.trim()) errors.firstName = 'First name is required'
     if (!formData.lastName.trim()) errors.lastName = 'Last name is required'
     if (!formData.email.trim()) {
@@ -1005,7 +1005,7 @@ export default function Home() {
           
           <div className="mt-12 text-center">
             <div className="inline-flex items-center gap-4 bg-white dark:bg-gray-800 rounded-lg px-6 py-4 shadow-lg">
-              <Certificate className="w-8 h-8 text-blue-600" />
+              <AwardIcon className="w-8 h-8 text-blue-600" />
               <div className="text-left">
                 <div className="font-semibold">ISO 27001 Certified</div>
                 <div className="text-sm text-muted-foreground">Information Security Management</div>
@@ -1565,7 +1565,17 @@ export default function Home() {
                 </div>
                 <div>
                   <Label htmlFor="message">Message</Label>
-                  <Textarea id="message" placeholder="Tell us about your project..." rows={4} />
+                  <Textarea
+                    id="message"
+                    placeholder="Tell us about your project..."
+                    rows={4}
+                    value={formData.message}
+                    onChange={e => handleInputChange('message', e.target.value)}
+                    className={formErrors.message ? 'border-red-500' : ''}
+                  />
+                  {formErrors.message && (
+                    <div className="text-red-500 text-sm mt-1">{formErrors.message}</div>
+                  )}
                 </div>
                 <Button className="w-full" size="lg">
                   Send Message
