@@ -407,7 +407,7 @@ export default function ContactPage() {
                       Email Us
                     </Button>
                   </a>
-                  <a href="https://calendly.com/dreamxdiamond/consultation" target="_blank" rel="noopener noreferrer" className="w-full">
+                  <a href="https://calendly.com/dreamxdiamond-c/30min" target="_blank" rel="noopener noreferrer" className="w-full">
                     <Button className="w-full" variant="outline">
                       <Calendar className="w-4 h-4 mr-2" />
                       Schedule Meeting
