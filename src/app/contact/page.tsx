@@ -61,9 +61,9 @@ export default function ContactPage() {
       icon: MapPin,
       title: 'Headquarters',
       details: [
-        '123 Tech Street, Suite 100',
-        'Silicon Valley, CA 94000',
-        'United States'
+        '5A/32,DreamX Diamond ',
+        'Pareek Path Dehar Ke Balaji Jaipur,Rajasthan 302039',
+        'India'
       ]
     },
     {
@@ -71,14 +71,15 @@ export default function ContactPage() {
       title: 'Phone',
       details: [
         '+91 8824395449',
-        '+1 (555) 987-6543',
-        'Mon-Fri 9:00 AM - 6:00 PM PST'
+        '+91 9509592002',
+        'Mon-Fri 9:00 AM - 6:00 PM IST'
       ]
     },
     {
       icon: Mail,
       title: 'Email',
       details: [
+        'dreamxdiamond.c@gmail.com',
         'info@dreamxdiamond.com',
         'support@dreamxdiamond.com',
         'sales@dreamxdiamond.com'
@@ -89,7 +90,7 @@ export default function ContactPage() {
       title: 'Business Hours',
       details: [
         'Monday - Friday: 9:00 AM - 6:00 PM',
-        'Saturday: 10:00 AM - 4:00 PM',
+        'Saturday: Closed',
         'Sunday: Closed'
       ]
     }
@@ -107,7 +108,7 @@ export default function ContactPage() {
     {
       city: 'New York, NY',
       address: '456 Broadway, Suite 200',
-      phone: '+1 (555) 234-5678',
+      phone: '+91 8824395449',
       email: 'ny@dreamxdiamond.com',
       hours: 'Mon-Fri 9:00 AM - 6:00 PM',
       services: ['Digital Marketing', 'IT Consulting', 'AI Solutions']
@@ -115,7 +116,7 @@ export default function ContactPage() {
     {
       city: 'Austin, TX',
       address: '789 Innovation Drive',
-      phone: '+1 (555) 345-6789',
+      phone: '+91 8824395449',
       email: 'austin@dreamxdiamond.com',
       hours: 'Mon-Fri 9:00 AM - 6:00 PM',
       services: ['Cybersecurity', 'Database Management', 'Cloud Services']
@@ -419,18 +420,26 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex gap-3">
-                    <Button variant="outline" size="sm">
-                      <Linkedin className="w-4 h-4" />
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      <Twitter className="w-4 h-4" />
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      <Facebook className="w-4 h-4" />
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      <Instagram className="w-4 h-4" />
-                    </Button>
+                    <a href="https://linkedin.com/company/dreamxdiamond" target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" size="sm">
+                        <Linkedin className="w-4 h-4" />
+                      </Button>
+                    </a>
+                    <a href="https://twitter.com/dreamxdiamond" target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" size="sm">
+                        <Twitter className="w-4 h-4" />
+                      </Button>
+                    </a>
+                    <a href="https://facebook.com/dreamxdiamond" target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" size="sm">
+                        <Facebook className="w-4 h-4" />
+                      </Button>
+                    </a>
+                    <a href="https://instagram.com/dreamxdiamond" target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" size="sm">
+                        <Instagram className="w-4 h-4" />
+                      </Button>
+                    </a>
                   </div>
                 </CardContent>
               </Card>
