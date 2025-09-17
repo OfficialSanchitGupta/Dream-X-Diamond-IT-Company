@@ -393,8 +393,8 @@ export default function ContactPage() {
                     <Smartphone className="w-5 h-5" />
                     Quick Contact
                   </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
+                  </CardHeader>
+                  <CardContent className="space-y-4">
                   <a href="tel:+918824395449" className="w-full">
                     <Button className="w-full" variant="outline">
                       <Phone className="w-4 h-4 mr-2" />
