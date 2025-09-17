@@ -395,18 +395,24 @@ export default function ContactPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button className="w-full" variant="outline">
-                    <Phone className="w-4 h-4 mr-2" />
-                    Call Us Now
-                  </Button>
-                  <Button className="w-full" variant="outline">
-                    <Mail className="w-4 h-4 mr-2" />
-                    Email Us
-                  </Button>
-                  <Button className="w-full" variant="outline">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    Schedule Meeting
-                  </Button>
+                  <a href="tel:+918824395449" className="w-full">
+                    <Button className="w-full" variant="outline">
+                      <Phone className="w-4 h-4 mr-2" />
+                      Call Us Now
+                    </Button>
+                  </a>
+                  <a href="mailto:dreamxdiamond.c@gmail.com" className="w-full">
+                    <Button className="w-full" variant="outline">
+                      <Mail className="w-4 h-4 mr-2" />
+                      Email Us
+                    </Button>
+                  </a>
+                  <a href="https://calendly.com/dreamxdiamond/consultation" target="_blank" rel="noopener noreferrer" className="w-full">
+                    <Button className="w-full" variant="outline">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Schedule Meeting
+                    </Button>
+                  </a>
                 </CardContent>
               </Card>
 
