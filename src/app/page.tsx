@@ -306,9 +306,9 @@ export default function Home() {
     {
       name: 'Neelam Mahaldar',
       position: 'CEO & Founder',
-      bio: '15+ years in IT industry, passionate about innovation and digital transformation',
+      bio: '2 years in IT industry, passionate about innovation and digital transformation',
       experience: 'Former CTO at Fortune 500 company',
-      education: 'MBA in Technology Management',
+      education: 'BCA in Technology Management',
       skills: ['Strategic Planning', 'Team Leadership', 'Digital Transformation'],
       linkedin: '#',
       photo: '/graphics/team-collaboration.jpg'
